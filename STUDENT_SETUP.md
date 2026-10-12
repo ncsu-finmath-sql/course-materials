@@ -22,9 +22,10 @@ Download from <https://code.visualstudio.com> and install with the default optio
 
 The practice checker uses Python behind the scenes. You never write Python.
 
-- **Windows:** download Python 3.12 or newer from <https://www.python.org/downloads/>. On the first
+- **Windows:** download **Python 3.12 or 3.13 (64-bit)** from <https://www.python.org/downloads/>. On the first
   installer screen, **tick "Add python.exe to PATH"**, then click Install.
-- **Mac:** download the installer from the same page and run it. (If you already have Python 3, skip this.)
+  Make sure it is the **64-bit** installer (the default on most computers).
+- **Mac:** download the Python 3.12 or 3.13 installer from the same page and run it. (If you already have a recent 64-bit Python 3, skip this.)
 
 ## Step 4 - Install Git
 
@@ -110,7 +111,7 @@ Source Control panel.
 |---|---|
 | Ctrl/Cmd+Shift+B does nothing | Make sure a `.sql` file is open and selected in the editor. |
 | "python not found" / "python3 not found" | Re-install Python (Step 3). On Windows tick **Add to PATH**, then close and re-open VS Code. |
-| "Setup failed while installing DuckDB" | Check your internet and try again. Campus Wi-Fi blocking? Try a hotspot or ask for help. |
+| "Setup failed while installing DuckDB", or a long `Building wheel for duckdb` error | Usually a Python that DuckDB has no ready-made package for (32-bit, very old, or Windows-on-ARM). Run `python --version` (`python3 --version` on Mac). Install Python 3.12 or 3.13 (64-bit), delete the `.venv` folder in your project, close and re-open VS Code, and try again. If your Python is already 3.12/3.13, check your internet (campus Wi-Fi blocking? try a hotspot). |
 | Clone asks for a password | Use **Clone from GitHub** and sign in through the browser. |
 | Can't see the repository to clone | You haven't accepted the invitation yet (Step 5). |
 | Sync/Push says "rejected" | Click **Sync Changes** again (it pulls first), then push. Never force-push. |
