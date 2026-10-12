@@ -13,7 +13,7 @@ database, so a data-service outage never blocks you. Class demos may use WRDS.
 | 6 | *Planned* | Window functions | Rolling returns and volatility | Copilot allowed |
 | 7 | *Planned* | Integrated analysis | Multi-asset dataset | Copilot allowed |
 
-The topic order is tentative and will be confirmed against the syllabus. Starter files for a later
+The topic order is tentative and will be confirmed against the [syllabus](FIM590_Syllabus.pdf). Starter files for a later
 assignment appear in your repository when it is released.
 
 ## Copilot progression

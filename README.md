@@ -8,10 +8,11 @@ Everything you need is on GitHub and in VS Code.
 
 ## Start here
 
-1. **[STUDENT_SETUP.md](STUDENT_SETUP.md)** - one-time setup (about 30 minutes). Do this *before* class 1.
-2. **[COURSE_ROADMAP.md](COURSE_ROADMAP.md)** - the seven classes and assignments, and when AI tools are allowed.
-3. **[datasets/README.md](datasets/README.md)** - what the data tables contain.
-4. **[copilot-policy.md](copilot-policy.md)** - how and when you may use GitHub Copilot.
+1. **[FIM590_Syllabus.pdf](FIM590_Syllabus.pdf)** - the course syllabus.
+2. **[STUDENT_SETUP.md](STUDENT_SETUP.md)** - one-time setup (about 30 minutes). Do this *before* class 1.
+3. **[COURSE_ROADMAP.md](COURSE_ROADMAP.md)** - the seven classes and assignments, and when AI tools are allowed.
+4. **[datasets/README.md](datasets/README.md)** - what the data tables contain.
+5. **[copilot-policy.md](copilot-policy.md)** - how and when you may use GitHub Copilot.
 
 Your assignments live in **your own private repository** (the instructor sends you an invitation).
 Each assignment folder inside it has a README with the instructions.
