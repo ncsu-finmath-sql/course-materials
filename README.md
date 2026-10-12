@@ -24,4 +24,4 @@ Each assignment folder inside it has a README with the instructions.
 - Your instructor records the official grade from the last version you pushed before the deadline.
   Only your `.sql` answer files count.
 
-Grading breakdown (syllabus): class assignments 70% (two are mandatory) and a final in-class assignment 30%.
+Grading breakdown (syllabus): class assignments 70% (all assignments are mandatory) and a final in-class assignment 30%.
