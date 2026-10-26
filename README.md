@@ -13,6 +13,7 @@ Everything you need is on GitHub and in VS Code.
 3. **[COURSE_ROADMAP.md](COURSE_ROADMAP.md)** - the seven classes and assignments, and when AI tools are allowed.
 4. **[datasets/README.md](datasets/README.md)** - what the data tables contain.
 5. **[copilot-policy.md](copilot-policy.md)** - how and when you may use GitHub Copilot.
+6. **[in_class_assignments/](in_class_assignments/)** - the practice questions from each class (questions only).
 
 Your assignments live in **your own private repository** (the instructor sends you an invitation).
 Each assignment folder inside it has a README with the instructions.
