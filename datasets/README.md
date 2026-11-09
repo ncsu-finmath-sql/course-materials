@@ -12,6 +12,9 @@ joined on `ticker`.
 | `prices` | `data/equity_prices.csv` | 984 | ticker per trading day | `ticker`, `trade_date` |
 | `companies` | `data/companies.csv` | 10 | company | `ticker` |
 | `fundamentals` | `data/fundamentals.csv` | 60 | company per fiscal quarter | `ticker`, `fiscal_year`, `fiscal_quarter` |
+| `fx_rates` | `data/fx_rates.csv` | 738 | currency pair per trading day | `pair`, `rate_date` |
+| `fx_pairs` | `data/fx_pairs.csv` | 6 | currency pair | `pair` |
+| `fx_exposure` | `data/fx_exposure.csv` | 19 | company per foreign currency | `ticker`, `ccy` |
 
 ## `prices` (from Assignment 1)
 
@@ -71,5 +74,43 @@ Things to keep in mind when joining:
 - Market cap in $ millions is `close_price * shares_outstanding` (both tables needed).
 - IOTA and JUNO report losses, so their `net_income` and `eps` are negative.
 
-Later assignments add tables for foreign exchange and bonds/yields.
+## `fx_rates` (from Week 4)
+
+6 currency pairs x the same 123 trading days as `prices`, 2025-01-02 to 2025-06-30.
+
+| Column | Type | Meaning |
+|---|---|---|
+| `pair` | text | Pair code: EURUSD, GBPUSD, AUDUSD, USDJPY, USDCAD, USDCHF |
+| `rate_date` | date | Trading day (the same days as `prices.trade_date`) |
+| `rate` | decimal(12,5) | Exchange rate for the pair on that day |
+| `day_high` | decimal(12,5) | Highest rate of the day |
+| `day_low` | decimal(12,5) | Lowest rate of the day |
+
+**Watch the direction.** `EURUSD` is dollars per euro (about 1.08). `USDJPY` is yen per dollar (about 130). To compare pairs,
+convert every rate to dollars per foreign unit. The **daily range** is `(day_high - day_low) / rate`.
+
+## `fx_pairs` (from Week 4)
+
+One row for each pair.
+
+| Column | Type | Meaning |
+|---|---|---|
+| `pair` | text | Pair code (matches `fx_rates.pair`) |
+| `base_ccy` | text | Base currency code |
+| `quote_ccy` | text | Quote currency code |
+| `base_name` | text | Name of the base currency |
+| `region` | text | Region of the base currency |
+
+## `fx_exposure` (from Week 4)
+
+How much of each company's revenue is earned in a foreign currency. All 10 companies appear; each foreign currency
+is one row.
+
+| Column | Type | Meaning |
+|---|---|---|
+| `ticker` | text | Trading symbol (matches `companies.ticker`) |
+| `ccy` | text | Currency code: EUR, GBP, AUD, JPY, CAD or CHF |
+| `pct_revenue` | decimal(5,2) | Share of revenue earned in that currency, as a percent (22.00 means 22%). The rest is US dollars |
+
+Later assignments add tables for bonds/yields.
 Class demonstrations may also use WRDS (the university's research data service); homework never requires it.

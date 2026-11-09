@@ -1,0 +1,137 @@
+DATABASE INFORMATION
+Engine: DuckDB. Tables: prices, companies, fundamentals, fx_rates, fx_pairs, fx_exposure.
+The data is synthetic. Tickers and company names are fictional.
+
+TABLE prices
+One row per ticker per trading day.
+Rows: 984
+Primary key: none declared. Each ticker and trade_date combination appears once.
+Columns:
+  ticker VARCHAR: fictional stock symbol
+  trade_date DATE: trading day
+  open_price DECIMAL(10,2): first price of the day
+  high_price DECIMAL(10,2): highest price of the day
+  low_price DECIMAL(10,2): lowest price of the day
+  close_price DECIMAL(10,2): last price of the day
+  volume BIGINT: shares traded
+NULLs: none in any column
+trade_date range: 2025-01-02 to 2025-06-30 (123 distinct dates)
+Distinct ticker: ALPH, BRVO, CRST, DLTA, ECHO, FNCH, GRNT, HLIO
+Sample rows:
+  ticker | trade_date | open_price | high_price | low_price | close_price | volume
+  ALPH | 2025-01-02 | 112.16 | 113.11 | 112.10 | 112.29 | 5209099
+  ALPH | 2025-01-03 | 112.96 | 117.07 | 112.85 | 115.86 | 4701058
+  ALPH | 2025-01-06 | 116.71 | 117.60 | 116.32 | 117.47 | 2163371
+
+TABLE companies
+One row per company.
+Rows: 10
+Primary key: ticker
+Columns:
+  ticker VARCHAR: trading symbol
+  company_name VARCHAR: company name
+  sector VARCHAR: broad sector
+  industry VARCHAR: industry within the sector
+  exchange VARCHAR: stock exchange
+  hq_state VARCHAR: two-letter US state of headquarters
+  listing_date DATE: date the stock started trading
+  employees INTEGER: number of employees
+NULLs: none in any column
+listing_date range: 1987-09-15 to 2025-11-05 (10 distinct dates)
+Distinct sector: Consumer Discretionary, Consumer Staples, Energy, Financials, Health Care, Industrials, Information Technology, Materials
+Distinct exchange: NASDAQ, NYSE
+Sample rows:
+  ticker | company_name | sector | industry | exchange | hq_state | listing_date | employees
+  ALPH | Alphaline Systems Inc. | Information Technology | Enterprise Software | NASDAQ | CA | 2009-03-18 | 18400
+  BRVO | Bravo Outfitters Corp. | Consumer Discretionary | Specialty Retail | NYSE | OH | 1998-06-02 | 41200
+  CRST | Crestmark Health Holdings | Health Care | Managed Health Care | NYSE | MN | 2003-10-21 | 52700
+
+TABLE fundamentals
+One row per company per fiscal quarter. Money amounts are in millions of US dollars. Share counts are in millions.
+Rows: 60
+Primary key: ticker, fiscal_year, fiscal_quarter
+Columns:
+  ticker VARCHAR: trading symbol
+  fiscal_year INTEGER: fiscal year
+  fiscal_quarter INTEGER: 1 to 4
+  period_end_date DATE: last day of the quarter
+  report_date DATE: date the results were published
+  revenue DECIMAL(12,1): sales for the quarter, $ millions
+  net_income DECIMAL(12,1): profit for the quarter, $ millions
+  eps DECIMAL(8,2): earnings per share for the quarter, $
+  shares_outstanding DECIMAL(10,1): shares outstanding, millions
+  total_assets DECIMAL(12,1): at quarter end, $ millions
+  total_debt DECIMAL(12,1): at quarter end, $ millions
+  total_equity DECIMAL(12,1): shareholders equity at quarter end, $ millions
+NULLs: none in any column
+period_end_date range: 2024-03-31 to 2025-06-30 (6 distinct dates)
+report_date range: 2024-05-03 to 2025-08-11 (34 distinct dates)
+Distinct ticker: ALPH, BRVO, CRST, DLTA, ECHO, FNCH, GRNT, HLIO, IOTA, JUNO
+Distinct fiscal_year: 2024, 2025
+Sample rows:
+  ticker | fiscal_year | fiscal_quarter | period_end_date | report_date | revenue | net_income | eps | shares_outstanding | total_assets | total_debt | total_equity
+  ALPH | 2024 | 1 | 2024-03-31 | 2024-05-13 | 6144.7 | 1432.5 | 1.69 | 847.5 | 39398.2 | 7132.8 | 24515.1
+  ALPH | 2024 | 2 | 2024-06-30 | 2024-07-30 | 6471.5 | 1598.3 | 1.89 | 845.7 | 41623.5 | 7614.9 | 25128.5
+  ALPH | 2024 | 3 | 2024-09-30 | 2024-11-04 | 6928.2 | 1625.9 | 1.93 | 841.4 | 44466.4 | 8047.9 | 27250.0
+
+TABLE fx_rates
+One row per currency pair per trading day.
+Rows: 738
+Primary key: pair, rate_date
+Columns:
+  pair VARCHAR: currency pair code (matches fx_pairs.pair)
+  rate_date DATE: trading day
+  rate DECIMAL(12,5): exchange rate for the pair on that day
+  day_high DECIMAL(12,5): highest rate of the day
+  day_low DECIMAL(12,5): lowest rate of the day
+NULLs: none in any column
+rate_date range: 2025-01-02 to 2025-06-30 (123 distinct dates)
+Distinct pair: AUDUSD, EURUSD, GBPUSD, USDCAD, USDCHF, USDJPY
+Sample rows:
+  pair | rate_date | rate | day_high | day_low
+  EURUSD | 2025-01-02 | 1.04507 | 1.04673 | 1.03454
+  EURUSD | 2025-01-03 | 1.04733 | 1.04787 | 1.04276
+  EURUSD | 2025-01-06 | 1.04733 | 1.04758 | 1.04510
+
+TABLE fx_pairs
+One row per currency pair.
+Rows: 6
+Primary key: pair
+Columns:
+  pair VARCHAR: currency pair code
+  base_ccy VARCHAR: base currency code
+  quote_ccy VARCHAR: quote currency code
+  base_name VARCHAR: name of the base currency
+  region VARCHAR: region of the base currency
+NULLs: none in any column
+Distinct base_ccy: AUD, EUR, GBP, USD
+Distinct quote_ccy: CAD, CHF, JPY, USD
+Distinct region: Australia, Canada, Eurozone, Japan, Switzerland, United Kingdom
+Sample rows:
+  pair | base_ccy | quote_ccy | base_name | region
+  EURUSD | EUR | USD | Euro | Eurozone
+  GBPUSD | GBP | USD | British Pound | United Kingdom
+  AUDUSD | AUD | USD | Australian Dollar | Australia
+
+TABLE fx_exposure
+One row per company per foreign currency.
+Rows: 19
+Primary key: ticker, ccy
+Columns:
+  ticker VARCHAR: trading symbol (matches companies.ticker)
+  ccy VARCHAR: three-letter currency code
+  pct_revenue DECIMAL(5,2): share of the company's revenue earned in that currency, in percent (22.00 means 22%)
+NULLs: none in any column
+Distinct ccy: AUD, CAD, CHF, EUR, GBP, JPY
+Sample rows:
+  ticker | ccy | pct_revenue
+  ALPH | EUR | 22.00
+  ALPH | JPY | 9.00
+  BRVO | CAD | 14.00
+
+TABLE RELATIONSHIPS
+  prices.ticker refers to companies.ticker
+  fundamentals.ticker refers to companies.ticker
+  fx_exposure.ticker refers to companies.ticker
+  fx_rates.pair refers to fx_pairs.pair
+  companies without any prices rows: IOTA, JUNO
